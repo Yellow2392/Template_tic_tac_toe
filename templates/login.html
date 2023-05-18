@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<h1>Login</h1>
+<script>
+function login() {
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+var data = { "username": username, "password": password };
+
+fetch('/login', {
+method: 'POST',
+body: JSON.stringify(data),
+headers:{
+'Content-Type': 'application/json'
+}
+}).then(response => response.text())
+.then(html => {
+document.body.innerHTML = html;
+})
+}
+</script>
+
+<!-- Crear formulario para enviar datos al servidor -->
+
+<form>
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">Password:</label><br>
+    <input type="text" id="password" name="password">
+  </form>
+
+{% for mesg in get_flashed_messages() %}
+<p>{{ mesg }}</p>
+{% endfor %}
+</body>
+</html>
